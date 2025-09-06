@@ -50,11 +50,9 @@ def main():
             # Create markdown content
             markdown_content = ""
             if frontmatter:
-                markdown_content += "---
-"
+                markdown_content += "---\n"
                 markdown_content += yaml.dump(frontmatter)
-                markdown_content += "---
-"
+                markdown_content += "---\n"
             markdown_content += body
 
             # Create new filename
