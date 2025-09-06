@@ -10,7 +10,9 @@ The action performs the following steps:
 2.  For each notebook, it reads the content and checks for a YAML frontmatter block in the first cell. The first cell must be a raw cell for the frontmatter to be recognized.
 3.  It converts the notebook to a markdown file.
 4.  If a frontmatter block was found, it prepends it to the markdown file.
-5.  It moves both the original `.ipynb` file and the new `.md` file to the `_posts` directory.
+5.  It saves the new `.md` file to the `_posts` directory. If a `categories` frontmatter is present, it will save the markdown file in a subdirectory of `_posts` named after the first category.
+6.  It moves the original `.ipynb` file to the `_notebook_archived` directory.
+7.  The action will create the `_posts` and `_notebook_archived` directories if they don't exist.
 
 ## Usage
 
