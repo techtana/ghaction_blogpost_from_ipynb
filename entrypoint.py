@@ -1,6 +1,5 @@
 
 import os
-import subprocess
 import yaml
 import nbformat
 from nbconvert import MarkdownExporter
@@ -11,11 +10,6 @@ def main():
     if not repo_path:
         print("Error: GITHUB_WORKSPACE environment variable not set.")
         return
-
-    # Configure git
-    subprocess.run(["git", "config", "--global", "--add", "safe.directory", repo_path], check=True)
-    subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"], check=True)
-    subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
 
     # Define paths
     notebook_dir = os.path.join(repo_path, "_jupyter_notebook")
