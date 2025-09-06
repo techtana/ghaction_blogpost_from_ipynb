@@ -70,17 +70,5 @@ def main():
             new_notebook_path = os.path.join(posts_dir, filename)
             os.rename(notebook_path, new_notebook_path)
 
-            # Git add
-            subprocess.run(["git", "add", markdown_path], check=True)
-            subprocess.run(["git", "add", new_notebook_path], check=True)
-
-    # Commit and push changes
-    try:
-        subprocess.run(["git", "commit", "-m", "Convert notebooks to markdown"], check=True)
-        subprocess.run(["git", "push"], check=True)
-    except subprocess.CalledProcessError as e:
-        # It's possible there were no changes to commit
-        print(f"Git commit/push failed: {e}")
-
 if __name__ == "__main__":
     main()

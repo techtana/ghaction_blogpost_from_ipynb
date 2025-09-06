@@ -14,5 +14,10 @@ jobs:
 
       - name: Convert Notebooks
         uses: ./ghaction_blogpost_from_ipynb
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: "Convert notebooks to markdown"
