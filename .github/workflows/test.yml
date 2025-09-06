@@ -33,8 +33,8 @@ jobs:
           # Check that the processed files are in _posts
           test -f _posts/2025-09-06-test_with_frontmatter.md
           test -f _posts/2025-09-06-test_without_frontmatter.md
-          test -f _posts/2025-09-06-test_with_frontmatter.ipynb
-          test -f _posts/2025-09-06-test_without_frontmatter.ipynb
+          test -f _notebook_archived/2025-09-06-test_with_frontmatter.ipynb
+          test -f _notebook_archived/2025-09-06-test_without_frontmatter.ipynb
           # Check that the ignored file is NOT in _posts
           test ! -f _posts/should_be_ignored.md
           # Check that the ignored notebook remains in the original directory
