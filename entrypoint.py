@@ -12,11 +12,13 @@ def main():
         return
 
     # Define paths
-    notebook_dir = os.path.join(repo_path, "_jupyter_notebook")
+    notebook_dir = os.path.join(repo_path, "_notebook")
     posts_dir = os.path.join(repo_path, "_posts")
+    notebook_archive_dir = os.path.join(repo_path, "_notebook_archived")
 
-    # Ensure the posts directory exists
+    # Ensure the directories exist
     os.makedirs(posts_dir, exist_ok=True)
+    os.makedirs(notebook_archive_dir, exist_ok=True)
 
     # Find all .ipynb files
     for filename in os.listdir(notebook_dir):
@@ -74,7 +76,7 @@ def main():
                 f.write(markdown_content)
 
             # Move the original notebook
-            new_notebook_path = os.path.join(output_dir, filename)
+            new_notebook_path = os.path.join(notebook_archive_dir, filename)
             os.rename(notebook_path, new_notebook_path)
 
 if __name__ == "__main__":
