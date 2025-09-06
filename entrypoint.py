@@ -18,7 +18,7 @@ def main():
 
     # Check if notebook directory exists
     if not os.path.isdir(notebook_dir):
-        print("'_jupyter_notebook' directory not found. Exiting.")
+        print("'_notebook' directory not found. Exiting.")
         return
     
     # Ensure the directories exist
