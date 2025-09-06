@@ -1,0 +1,18 @@
+name: Convert Notebooks to Posts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Convert Notebooks
+        uses: ./ghaction_blogpost_from_ipynb
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
