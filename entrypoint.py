@@ -1,5 +1,5 @@
-
 import os
+import re
 import yaml
 import nbformat
 from nbconvert import MarkdownExporter
@@ -20,7 +20,7 @@ def main():
 
     # Find all .ipynb files
     for filename in os.listdir(notebook_dir):
-        if filename.endswith(".ipynb"):
+        if filename.endswith(".ipynb") and re.match(r"^\d{4}-\d{2}-\d{2}-", filename):
             notebook_path = os.path.join(notebook_dir, filename)
             
             # Read the notebook
@@ -49,17 +49,32 @@ def main():
                 markdown_content += "---\n"
             markdown_content += body
 
+            # Determine output directory based on frontmatter
+            output_dir = posts_dir
+            if frontmatter and "categories" in frontmatter:
+                categories = frontmatter["categories"]
+                if isinstance(categories, list) and categories:
+                    category = categories[0]
+                    if category:
+                        output_dir = os.path.join(posts_dir, category)
+                elif isinstance(categories, str) and categories:
+                    category = categories
+                    output_dir = os.path.join(posts_dir, category)
+
+            # Ensure the output directory exists
+            os.makedirs(output_dir, exist_ok=True)
+
             # Create new filename
             base_filename = os.path.splitext(filename)[0]
             markdown_filename = f"{base_filename}.md"
-            markdown_path = os.path.join(posts_dir, markdown_filename)
+            markdown_path = os.path.join(output_dir, markdown_filename)
 
             # Write the markdown file
             with open(markdown_path, "w", encoding="utf-8") as f:
                 f.write(markdown_content)
 
             # Move the original notebook
-            new_notebook_path = os.path.join(posts_dir, filename)
+            new_notebook_path = os.path.join(output_dir, filename)
             os.rename(notebook_path, new_notebook_path)
 
 if __name__ == "__main__":

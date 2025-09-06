@@ -18,23 +18,35 @@ jobs:
       - name: Create test notebooks
         run: |
           mkdir -p _jupyter_notebook
-          echo '{ "cells": [ { "cell_type": "raw", "metadata": {}, "source": [ "title: Test Post with Frontmatter\n", "author: Gemini" ] }, { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook" ] }, { "cell_type": "code", "execution_count": null, "metadata": {}, "outputs": [], "source": [ "print(\"Hello, World!\")" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _jupyter_notebook/test_with_frontmatter.ipynb
-          echo '{ "cells": [ { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook without frontmatter" ] }, { "cell_type": "code", "execution_count": null, "metadata": {}, "outputs": [], "source": [ "print(\"Hello, again!\")" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _jupyter_notebook/test_without_frontmatter.ipynb
+          echo '{ "cells": [ { "cell_type": "raw", "metadata": {}, "source": [ "title: Test Post with Frontmatter\n", "author: Gemini" ] }, { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook" ] }, { "cell_type": "code", "execution_count": null, "metadata": {}, "outputs": [], "source": [ "print(\"Hello, World!\")" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _jupyter_notebook/2025-09-06-test_with_frontmatter.ipynb
+          echo '{ "cells": [ { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook without frontmatter" ] }, { "cell_type": "code", "execution_count": null, "metadata": {}, "outputs": [], "source": [ "print(\"Hello, again!\")" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _jupyter_notebook/2025-09-06-test_without_frontmatter.ipynb
+          echo '{ "cells": [ { "cell_type": "markdown", "metadata": {}, "source": [ "# This notebook should be ignored" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _jupyter_notebook/should_be_ignored.ipynb
+          echo '{ "cells": [ { "cell_type": "raw", "metadata": {}, "source": [ "title: Test Post with Category\n", "author: Gemini\n", "categories: [my-category, another-category]" ] }, { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook with a category" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _jupyter_notebook/2025-09-06-test_with_category.ipynb
 
       - name: Run action
-        uses: ./
+        uses: ./ 
 
       - name: Verify output
         run: |
           set -e
           ls -R
-          test -f _posts/test_with_frontmatter.md
-          test -f _posts/test_without_frontmatter.md
-          test -f _posts/test_with_frontmatter.ipynb
-          test -f _posts/test_without_frontmatter.ipynb
-          grep -q "title: Test Post with Frontmatter" _posts/test_with_frontmatter.md
-          grep -q "author: Gemini" _posts/test_with_frontmatter.md
-          grep -q "# This is a test notebook" _posts/test_with_frontmatter.md
-          grep -q "print(\"Hello, World!\")" _posts/test_with_frontmatter.md
-          grep -q "# This is a test notebook without frontmatter" _posts/test_without_frontmatter.md
-          grep -q "print(\"Hello, again!\")" _posts/test_without_frontmatter.md
+          # Check that the processed files are in _posts
+          test -f _posts/2025-09-06-test_with_frontmatter.md
+          test -f _posts/2025-09-06-test_without_frontmatter.md
+          test -f _posts/2025-09-06-test_with_frontmatter.ipynb
+          test -f _posts/2025-09-06-test_without_frontmatter.ipynb
+          # Check that the ignored file is NOT in _posts
+          test ! -f _posts/should_be_ignored.md
+          # Check that the ignored notebook remains in the original directory
+          test -f _jupyter_notebook/should_be_ignored.ipynb
+          # Check that the categorized files are in the correct subfolder
+          test -f _posts/my-category/2025-09-06-test_with_category.md
+          # Check content of processed files
+          grep -q "title: Test Post with Frontmatter" _posts/2025-09-06-test_with_frontmatter.md
+          grep -q "author: Gemini" _posts/2025-09-06-test_with_frontmatter.md
+          grep -q "# This is a test notebook" _posts/2025-09-06-test_with_frontmatter.md
+          grep -q "print(\"Hello, World!\")" _posts/2025-09-06-test_with_frontmatter.md
+          grep -q "# This is a test notebook without frontmatter" _posts/2025-09-06-test_without_frontmatter.md
+          grep -q "print(\"Hello, again!\")" _posts/2025-09-06-test_without_frontmatter.md
+          # Check content of categorized file
+          grep -q "title: Test Post with Category" _posts/my-category/2025-09-06-test_with_category.md
