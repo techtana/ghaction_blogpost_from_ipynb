@@ -1,0 +1,19 @@
+name: 'Enhance Posts'
+description: 'Enhance Jekyll posts using OpenAI'
+inputs:
+  github_token:
+    description: 'GitHub token'
+    required: true
+  openai_api_key:
+    description: 'OpenAI API Key'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: pip install -r ${{ github.action_path }}/requirements.txt
+      shell: bash
+    - run: python ${{ github.action_path }}/main.py
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        OPENAI_API_KEY: ${{ inputs.openai_api_key }}
