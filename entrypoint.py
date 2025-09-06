@@ -16,6 +16,11 @@ def main():
     posts_dir = os.path.join(repo_path, "_posts")
     notebook_archive_dir = os.path.join(repo_path, "_notebook_archived")
 
+    # Check if notebook directory exists
+    if not os.path.isdir(notebook_dir):
+        print("'_jupyter_notebook' directory not found. Exiting.")
+        return
+    
     # Ensure the directories exist
     os.makedirs(posts_dir, exist_ok=True)
     os.makedirs(notebook_archive_dir, exist_ok=True)
