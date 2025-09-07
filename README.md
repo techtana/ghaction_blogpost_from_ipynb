@@ -1,5 +1,11 @@
 # Jupyter to Markdown Action
 
+[![Test](https://github.com/techtana/ghaction_blogpost_from_ipynb/actions/workflows/test.yml/badge.svg)](https://github.com/techtana/ghaction_blogpost_from_ipynb/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/techtana/ghaction_blogpost_from_ipynb)
+![GitHub last commit](https://img.shields.io/github/last-commit/techtana/ghaction_blogpost_from_ipynb)
+![GitHub top language](https://img.shields.io/github/languages/top/techtana/ghaction_blogpost_from_ipynb)
+
 This GitHub Action converts Jupyter notebooks (`.ipynb`) to markdown files (`.md`), preserving frontmatter. It's designed to be used in a GitHub Actions workflow to automate the process of publishing blog posts written in Jupyter notebooks.
 
 ## How it works
