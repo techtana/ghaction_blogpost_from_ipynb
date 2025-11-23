@@ -17,11 +17,11 @@ jobs:
 
       - name: Create test notebooks
         run: |
-          mkdir -p _notebook
-          echo '{ "cells": [ { "cell_type": "raw", "metadata": {}, "source": [ "title: Test Post with Frontmatter\n", "author: Gemini" ] }, { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook" ] }, { "cell_type": "code", "execution_count": null, "metadata": {}, "outputs": [], "source": [ "print(\"Hello, World!\")" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _notebook/2025-09-06-test_with_frontmatter.ipynb
-          echo '{ "cells": [ { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook without frontmatter" ] }, { "cell_type": "code", "execution_count": null, "metadata": {}, "outputs": [], "source": [ "print(\"Hello, again!\")" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _notebook/2025-09-06-test_without_frontmatter.ipynb
-          echo '{ "cells": [ { "cell_type": "markdown", "metadata": {}, "source": [ "# This notebook should be ignored" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _notebook/should_be_ignored.ipynb
-          echo '{ "cells": [ { "cell_type": "raw", "metadata": {}, "source": [ "title: Test Post with Category\n", "author: Gemini\n", "categories: [my-category, another-category]" ] }, { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook with a category" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _notebook/2025-09-06-test_with_category.ipynb
+          mkdir -p _notebook_commit
+          echo '{ "cells": [ { "cell_type": "raw", "metadata": {}, "source": [ "title: Test Post with Frontmatter\n", "author: Gemini" ] }, { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook" ] }, { "cell_type": "code", "execution_count": null, "metadata": {}, "outputs": [], "source": [ "print(\"Hello, World!\")" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _notebook_commit/2025-09-06-test_with_frontmatter.ipynb
+          echo '{ "cells": [ { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook without frontmatter" ] }, { "cell_type": "code", "execution_count": null, "metadata": {}, "outputs": [], "source": [ "print(\"Hello, again!\")" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _notebook_commit/2025-09-06-test_without_frontmatter.ipynb
+          echo '{ "cells": [ { "cell_type": "markdown", "metadata": {}, "source": [ "# This notebook should be ignored" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _notebook_commit/should_be_ignored.ipynb
+          echo '{ "cells": [ { "cell_type": "raw", "metadata": {}, "source": [ "title: Test Post with Category\n", "author: Gemini\n", "categories: [my-category, another-category]" ] }, { "cell_type": "markdown", "metadata": {}, "source": [ "# This is a test notebook with a category" ] } ], "metadata": {}, "nbformat": 4, "nbformat_minor": 4 }' > _notebook_commit/2025-09-06-test_with_category.ipynb
 
       - name: Run action
         uses: ./ 
@@ -38,7 +38,7 @@ jobs:
           # Check that the ignored file is NOT in _posts
           test ! -f _posts/should_be_ignored.md
           # Check that the ignored notebook remains in the original directory
-          test -f _notebook/should_be_ignored.ipynb
+          test -f _notebook_commit/should_be_ignored.ipynb
           # Check that the categorized files are in the correct subfolder
           test -f _posts/my-category/2025-09-06-test_with_category.md
           # Check content of processed files
