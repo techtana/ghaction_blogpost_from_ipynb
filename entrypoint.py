@@ -12,13 +12,13 @@ def main():
         return
 
     # Define paths
-    notebook_dir = os.path.join(repo_path, "_notebook")
+    notebook_dir = os.path.join(repo_path, "_notebook_commit")
     posts_dir = os.path.join(repo_path, "_posts")
     notebook_archive_dir = os.path.join(repo_path, "_notebook_archived")
 
     # Check if notebook directory exists
     if not os.path.isdir(notebook_dir):
-        print("'_notebook' directory not found. Exiting.")
+        print("'_notebook_commit' directory not found. Exiting.")
         return
     
     # Ensure the directories exist

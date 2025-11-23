@@ -1,6 +1,6 @@
 name: 'Jupyter to Markdown Action'
 description: 'Converts Jupyter notebooks to markdown files, preserving frontmatter.'
-author: 'Your Name'
+author: 'Tech Tana'
 
 runs:
   using: 'docker'
